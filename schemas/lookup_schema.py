@@ -1,12 +1,10 @@
 from main import ma
 
-# create the Participant Schema with Marshmallow, it will provide the serialization needed for converting the data into JSON
 class LookupSchema(ma.Schema):
     class Meta:
-        # Fields to expose
-        fields = ("id", "name", "address", "phone")
+        fields = ("id", "name")
 
-# single participant schema, when one participant needs to be retrieved
+# single lookup schema
 lookup_schema = LookupSchema()
-# multiple participant schema, when many participants need to be retrieved
+# multiple lookup schema
 lookups_schema = LookupSchema(many=True)

@@ -1,12 +1,18 @@
 from main import ma
 
-# create the Participant Schema with Marshmallow, it will provide the serialization needed for converting the data into JSON
-class JunctionSchema(ma.Schema):
+class CharacterAffiliationSchema(ma.Schema):
     class Meta:
-        # Fields to expose
-        fields = ("id", "name", "address", "phone")
+        fields = ("character_id", "affiliation_id")
 
-# single participant schema, when one participant needs to be retrieved
-junction_schema = JunctionSchema()
-# multiple participant schema, when many participants need to be retrieved
-junctions_schema = JunctionSchema(many=True)
+
+character_affiliation_schema = CharacterAffiliationSchema()
+character_affiliations_schema = CharacterAffiliationSchema(many=True)
+
+
+class CharacterOccupationSchema(ma.Schema):
+    class Meta:
+        fields = ("character_id", "occupation_id")
+
+
+character_occupation_schema = CharacterOccupationSchema()
+character_occupations_schema = CharacterOccupationSchema(many=True)

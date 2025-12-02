@@ -1,12 +1,11 @@
 from main import ma
 
-# create the Competition Schema with Marshmallow, it will provide the serialization needed for converting the data into JSON
 class CharacterSchema(ma.Schema):
     class Meta:
         # Fields to expose
-        fields = ("id", "title", "description", "prize", "year")
+        fields = ("id", "name", "birth_year", "classification", "place_of_birth", "rank", "status")
 
-# single competition schema, when one competition needs to be retrieved
+# single character schema
 character_schema = CharacterSchema()
-# multiple competition schema, when many competitions need to be retrieved
+# multiple character schema
 characters_schema = CharacterSchema(many=True)
