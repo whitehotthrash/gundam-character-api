@@ -1,7 +1,6 @@
 from main import db
 
 class CharacterAffiliation(db.Model):
-
     __tablename__ = "character_affiliation"
     character_id = db.Column(
         db.Integer, db.ForeignKey("character.id"), primary_key=True
@@ -12,7 +11,6 @@ class CharacterAffiliation(db.Model):
 
 
 class CharacterOccupation(db.Model):
-
     __tablename__ = "character_occupation"
     character_id = db.Column(
         db.Integer, db.ForeignKey("character.id"), primary_key=True
