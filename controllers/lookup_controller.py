@@ -41,7 +41,7 @@ def create_occupation():
 
 
 # POST endpoint for affiliations
-@lookups.route("/", methods=["POST"])
+@lookups.route("/affiliations/", methods=["POST"])
 def create_affiliation():
     affiliation_fields = affiliation_schema.load(request.json)
     new_affiliation = Affiliation()
@@ -52,7 +52,7 @@ def create_affiliation():
 
 
 # DELETE endpoint for affiliations
-@lookups.route("/<int:id>/", methods=["DELETE"])
+@lookups.route("/affiliations/<int:id>/", methods=["DELETE"])
 def delete_affiliation(id):
     stmt = db.select(Affiliation).filter_by(id=id)
     affiliation = db.session.scalar(stmt)

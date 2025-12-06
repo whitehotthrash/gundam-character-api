@@ -2,11 +2,11 @@ from flask import Blueprint, jsonify, request, abort
 from init import db
 from models.character import Character
 from schemas.character_schema import character_schema, CharacterSchema
+from models.lookup_tables import Affiliation, Occupation
 
 characters = Blueprint("characters", __name__, url_prefix="/characters")
 
 
-# The GET routes endpoint
 @characters.route("/", methods=["GET"])
 def get_characters():
     # get all the characters from the database table
@@ -17,30 +17,34 @@ def get_characters():
     return jsonify(result)
 
 
-# The POST route endpoint
 @characters.route("/", methods=["POST"])
 def create_character():
     # Create a new character
-    # Deserialize JSON into a Character instance
+    # from schemas.lookup_schema import affiliation_schema
     character = character_schema.load(request.json, session=db.session)
-    # Add to DB and commit
+    # data = request.get_json()
+    
+    # new_affiliation = affiliation_schema.load(data, session=db.session)
+    
+    # affiliations = Affiliation.query.get(new_affiliation.id)
+    # character.affiliations = affiliations
+    
     db.session.add(character)
     db.session.commit()
-    # Serialize and return the new character
-    return jsonify(character_schema.dump(character))
+    
+    return jsonify(character_schema.dump(character)), 201
 
 
-# The DELETE route endpoint
 @characters.route("/<int:id>/", methods=["DELETE"])
 def delete_character(id):
-    # find the character
+    
     stmt = db.select(Character).filter_by(id=id)
     character = db.session.scalar(stmt)
-    # return an error if the character doesn't exist
+    
     if not character:
         return abort(400, description="Character doesn't exist")
-    # Delete the character from the database and commit
+    
     db.session.delete(character)
     db.session.commit()
-    # return the character in the response
+    
     return jsonify(character_schema.dump(character))

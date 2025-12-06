@@ -3,7 +3,7 @@ from flask import Blueprint
 from init import db
 from models.character import Character
 from models.lookup_tables import Affiliation, Occupation
-from models.junction_tables import character_affiliation, character_occupation
+# from models.junction_tables import character_affiliation, character_occupation
 
 db_commands = Blueprint("db", __name__)
 
@@ -104,7 +104,6 @@ def seed_db():
 
     characters_by_name = {c.name: c for c in characters}
 
-    # Assign affiliations using ORM-managed relationship lists
     affiliation_assignments = {
       "Uso Ewin": ["League Militaire"],
       "Katejina Loos": ["Zanscare Empire"],
@@ -140,4 +139,4 @@ def seed_db():
     db.session.add_all(characters + list(affiliations.values()) + list(occupations.values()))
     db.session.commit()
 
-print("Database seeded with Victory Gundam characters, affiliations, and occupations.")
+    print("Database seeded with Victory Gundam characters, affiliations, and occupations.")
