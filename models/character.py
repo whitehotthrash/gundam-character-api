@@ -1,4 +1,4 @@
-from main import db
+from init import db
 
 class Character(db.Model):
     # Core character table storing canonical bio information

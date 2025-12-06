@@ -23,12 +23,11 @@ def drop_db():
 @db_commands.cli.command("seed")
 def seed_db():
 
-    # Characters (∀ Mobile Suit Victory Gundam, UC 0153 era) 
+    # Characters from Mobile Suit Victory Gundam, UC 0153 era
     characters = [
         Character(
             name="Uso Ewin",
-            # 13 years old in UC 0153 → 0140
-            birth_year=date(140, 1, 1),
+            birth_year=date(140, 4, 17),
             classification="newtype",
             place_of_birth="Earth",
             rank="Pilot",
@@ -36,17 +35,15 @@ def seed_db():
         ),
         Character(
             name="Katejina Loos",
-            # Approx. 17 years old in UC 0153 → 0136
-            birth_year=date(136, 1, 1),
+            birth_year=date(136, 1, 20),
             classification="oldtype",
-            place_of_birth=None,
+            place_of_birth="Earth",
             rank="Pilot",
             status="Alive",
         ),
         Character(
             name="Cronicle Asher",
-            # Canon birth year 0133 U.C. [Cronicle Asher profile](https://gundam.fandom.com/wiki/Cronicle_Asher)
-            birth_year=date(133, 1, 1),
+            birth_year=date(133, 7, 1),
             classification="oldtype",
             place_of_birth="Side 1",
             rank="Lieutenant",
@@ -54,37 +51,33 @@ def seed_db():
         ),
         Character(
             name="Marbet Fingerhat",
-            # Approx. mid-20s in UC 0153 → 0129
-            birth_year=date(129, 1, 1),
+            birth_year=date(129, 9, 29),
             classification="oldtype",
-            place_of_birth=None,
+            place_of_birth="Earth",
             rank="Lieutenant",
             status="Alive",
         ),
         Character(
             name="Mahalia Merrill",
-            # Approx. late teens in UC 0153 → 0134
-            birth_year=date(134, 1, 1),
+            birth_year=date(134, 10, 10),
             classification="oldtype",
-            place_of_birth=None,
+            place_of_birth="Earth",
             rank="Ensign",
             status="Killed In Action",
         ),
         Character(
             name="Fuala Griffon",
-            # Approx. early 20s in UC 0153 → 0132
-            birth_year=date(132, 1, 1),
+            birth_year=date(132, 12, 23),
             classification="oldtype",
-            place_of_birth=None,
+            place_of_birth="Side 1",
             rank="Commander",
             status="Killed In Action",
         ),
         Character(
             name="Fonse Kagatie",
-            # Canon birth year 0088 U.C., 65 in UC 0153
-            birth_year=date(88, 1, 1),
+            birth_year=date(88, 3, 5),
             classification="oldtype",
-            place_of_birth=None,
+            place_of_birth="Jupiter Colony",
             rank="Supreme Commander",
             status="Killed In Action",
         ),

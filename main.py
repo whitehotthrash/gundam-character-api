@@ -1,10 +1,5 @@
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from flask_marshmallow import Marshmallow
-from commands import db_commands
-
-db = SQLAlchemy()
-ma = Marshmallow()
+from init import db, ma
 
 def create_app():
     
@@ -17,6 +12,13 @@ def create_app():
     # initialising our database object with the flask app
     db.init_app(app)
     ma.init_app(app)
+    
+    from commands import db_commands
     app.register_blueprint(db_commands)
+    
+    # import the controllers and activate the blueprints
+    from controllers import registerable_controllers
+    for controller in registerable_controllers:
+        app.register_blueprint(controller)
 
     return app

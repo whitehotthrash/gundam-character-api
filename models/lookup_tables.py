@@ -1,4 +1,4 @@
-from main import db
+from init import db
 
 class Affiliation(db.Model):
     __tablename__ = "affiliation"

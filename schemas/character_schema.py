@@ -1,4 +1,4 @@
-from main import ma
+from init import ma
 
 class CharacterSchema(ma.Schema):
     class Meta:
