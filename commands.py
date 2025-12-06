@@ -1,6 +1,6 @@
 from datetime import date
 from flask import Blueprint
-from main import db
+from init import db
 from models.character import Character
 from models.lookup_tables import Affiliation, Occupation
 from models.junction_tables import CharacterAffiliation, CharacterOccupation
@@ -22,7 +22,6 @@ def drop_db():
 
 @db_commands.cli.command("seed")
 def seed_db():
-
     # Characters from Mobile Suit Victory Gundam, UC 0153 era
     characters = [
         Character(
@@ -83,7 +82,7 @@ def seed_db():
         ),
     ]
 
-    # Lookup tables 
+    # Lookup tables
     affiliation_names = [
         "League Militaire",
         "Zanscare Empire",
@@ -98,12 +97,14 @@ def seed_db():
     occupations = {name: Occupation(name=name) for name in occupation_names}
 
     # Persist base records and get primary keys
-    db.session.add_all(characters + list(affiliations.values()) + list(occupations.values()))
+    db.session.add_all(
+        characters + list(affiliations.values()) + list(occupations.values())
+    )
     db.session.flush()
 
     characters_by_name = {c.name: c for c in characters}
 
-    # Junction: character <> affiliation 
+    # Junction: character <> affiliation
     character_affiliations = [
         CharacterAffiliation(
             character_id=characters_by_name["Uso Ewin"].id,
@@ -135,7 +136,7 @@ def seed_db():
         ),
     ]
 
-    # Junction: character <> occupation 
+    # Junction: character <> occupation
     character_occupations = [
         CharacterOccupation(
             character_id=characters_by_name["Uso Ewin"].id,
@@ -169,4 +170,6 @@ def seed_db():
 
     db.session.add_all(character_affiliations + character_occupations)
     db.session.commit()
-    print("Database seeded with Victory Gundam characters, affiliations, and occupations.")
+    print(
+        "Database seeded with Victory Gundam characters, affiliations, and occupations."
+    )

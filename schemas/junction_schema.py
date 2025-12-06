@@ -1,17 +1,23 @@
 from init import ma
+from models.junction_tables import CharacterAffiliation, CharacterOccupation
 
-class CharacterAffiliationSchema(ma.Schema):
+
+class CharacterAffiliationSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
-        fields = ("character_id", "affiliation_id")
+        model = CharacterAffiliation
+        load_instance = True
+        include_fk = True
 
 
 character_affiliation_schema = CharacterAffiliationSchema()
 character_affiliations_schema = CharacterAffiliationSchema(many=True)
 
 
-class CharacterOccupationSchema(ma.Schema):
+class CharacterOccupationSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
-        fields = ("character_id", "occupation_id")
+        model = CharacterOccupation
+        load_instance = True
+        include_fk = True
 
 
 character_occupation_schema = CharacterOccupationSchema()

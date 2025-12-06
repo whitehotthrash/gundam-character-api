@@ -1,8 +1,8 @@
-from init import ma
+from marshmallow import Schema, fields
 
-class LookupSchema(ma.Schema):
-  class Meta:
-    fields = ("id", "name")
+class LookupSchema(Schema):
+    id = fields.Int()
+    name = fields.Str()
 
 affiliation_schema = LookupSchema()
 affiliations_schema = LookupSchema(many=True)

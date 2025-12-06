@@ -1,9 +1,13 @@
 from init import ma
+from models.character import Character
 
-class CharacterSchema(ma.Schema):
+
+class CharacterSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
-        # Fields to expose
-        fields = ("id", "name", "birth_year", "classification", "place_of_birth", "rank", "status")
+        model = Character
+        load_instance = True
+        ordered = True
+
 
 # single character schema
 character_schema = CharacterSchema()
