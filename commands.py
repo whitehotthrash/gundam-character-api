@@ -3,7 +3,7 @@ from flask import Blueprint
 from init import db
 from models.character import Character
 from models.lookup_tables import Affiliation, Occupation
-from models.junction_tables import CharacterAffiliation, CharacterOccupation
+from models.junction_tables import character_affiliation, character_occupation
 
 db_commands = Blueprint("db", __name__)
 
@@ -104,72 +104,40 @@ def seed_db():
 
     characters_by_name = {c.name: c for c in characters}
 
-    # Junction: character <> affiliation
-    character_affiliations = [
-        CharacterAffiliation(
-            character_id=characters_by_name["Uso Ewin"].id,
-            affiliation_id=affiliations["League Militaire"].id,
-        ),
-        CharacterAffiliation(
-            character_id=characters_by_name["Katejina Loos"].id,
-            affiliation_id=affiliations["Zanscare Empire"].id,
-        ),
-        CharacterAffiliation(
-            character_id=characters_by_name["Cronicle Asher"].id,
-            affiliation_id=affiliations["Zanscare Empire"].id,
-        ),
-        CharacterAffiliation(
-            character_id=characters_by_name["Marbet Fingerhat"].id,
-            affiliation_id=affiliations["League Militaire"].id,
-        ),
-        CharacterAffiliation(
-            character_id=characters_by_name["Mahalia Merrill"].id,
-            affiliation_id=affiliations["League Militaire"].id,
-        ),
-        CharacterAffiliation(
-            character_id=characters_by_name["Fuala Griffon"].id,
-            affiliation_id=affiliations["Zanscare Empire"].id,
-        ),
-        CharacterAffiliation(
-            character_id=characters_by_name["Fonse Kagatie"].id,
-            affiliation_id=affiliations["Zanscare Empire"].id,
-        ),
-    ]
+    # Assign affiliations using ORM-managed relationship lists
+    affiliation_assignments = {
+      "Uso Ewin": ["League Militaire"],
+      "Katejina Loos": ["Zanscare Empire"],
+      "Cronicle Asher": ["Zanscare Empire"],
+      "Marbet Fingerhat": ["League Militaire"],
+      "Mahalia Merrill": ["League Militaire"],
+      "Fuala Griffon": ["Zanscare Empire"],
+      "Fonse Kagatie": ["Zanscare Empire"],
+    }
 
-    # Junction: character <> occupation
-    character_occupations = [
-        CharacterOccupation(
-            character_id=characters_by_name["Uso Ewin"].id,
-            occupation_id=occupations["Mobile Suit Pilot"].id,
-        ),
-        CharacterOccupation(
-            character_id=characters_by_name["Katejina Loos"].id,
-            occupation_id=occupations["Mobile Suit Pilot"].id,
-        ),
-        CharacterOccupation(
-            character_id=characters_by_name["Cronicle Asher"].id,
-            occupation_id=occupations["Mobile Suit Pilot"].id,
-        ),
-        CharacterOccupation(
-            character_id=characters_by_name["Marbet Fingerhat"].id,
-            occupation_id=occupations["Mobile Suit Pilot"].id,
-        ),
-        CharacterOccupation(
-            character_id=characters_by_name["Mahalia Merrill"].id,
-            occupation_id=occupations["Mobile Suit Pilot"].id,
-        ),
-        CharacterOccupation(
-            character_id=characters_by_name["Fuala Griffon"].id,
-            occupation_id=occupations["Mobile Suit Pilot"].id,
-        ),
-        CharacterOccupation(
-            character_id=characters_by_name["Fonse Kagatie"].id,
-            occupation_id=occupations["Supreme Commander"].id,
-        ),
-    ]
+    occupation_assignments = {
+      "Uso Ewin": ["Mobile Suit Pilot"],
+      "Katejina Loos": ["Mobile Suit Pilot"],
+      "Cronicle Asher": ["Mobile Suit Pilot"],
+      "Marbet Fingerhat": ["Mobile Suit Pilot"],
+      "Mahalia Merrill": ["Mobile Suit Pilot"],
+      "Fuala Griffon": ["Mobile Suit Pilot"],
+      "Fonse Kagatie": ["Supreme Commander"],
+    }
+    
+    for char_name, aff_list in affiliation_assignments.items():
+      char = characters_by_name[char_name]
+      for aff_name in aff_list:
+        char.affiliations.append(affiliations[aff_name])
 
-    db.session.add_all(character_affiliations + character_occupations)
+    # apply occupations
+    for char_name, occ_list in occupation_assignments.items():
+      char = characters_by_name[char_name]
+      for occ_name in occ_list:
+        char.occupations.append(occupations[occ_name])
+
+    # Add all characters and lookups to session (relationships handled automatically)
+    db.session.add_all(characters + list(affiliations.values()) + list(occupations.values()))
     db.session.commit()
-    print(
-        "Database seeded with Victory Gundam characters, affiliations, and occupations."
-    )
+
+print("Database seeded with Victory Gundam characters, affiliations, and occupations.")

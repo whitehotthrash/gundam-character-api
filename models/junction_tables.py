@@ -1,21 +1,33 @@
 from init import db
 
-class CharacterAffiliation(db.Model):
-    __tablename__ = "character_affiliation"
-    character_id = db.Column(
-        db.Integer, db.ForeignKey("character.id"), primary_key=True
-    )
-    affiliation_id = db.Column(
-        db.Integer, db.ForeignKey("affiliation.id"), primary_key=True
-    )
+character_affiliation = db.Table(
+    "character_affiliation",
+    db.Column(
+        "character_id",
+        db.Integer,
+        db.ForeignKey("character.id", ondelete="CASCADE"),
+        primary_key=True,
+    ),
+    db.Column(
+        "affiliation_id",
+        db.Integer,
+        db.ForeignKey("affiliation.id", ondelete="CASCADE"),
+        primary_key=True,
+    ),
+)
 
-
-class CharacterOccupation(db.Model):
-    __tablename__ = "character_occupation"
-    character_id = db.Column(
-        db.Integer, db.ForeignKey("character.id"), primary_key=True
-    )
-    occupation_id = db.Column(
-        db.Integer, db.ForeignKey("occupation.id"), primary_key=True
-    )
-
+character_occupation = db.Table(
+    "character_occupation",
+    db.Column(
+        "character_id",
+        db.Integer,
+        db.ForeignKey("character.id", ondelete="CASCADE"),
+        primary_key=True,
+    ),
+    db.Column(
+        "occupation_id",
+        db.Integer,
+        db.ForeignKey("occupation.id", ondelete="CASCADE"),
+        primary_key=True,
+    ),
+)
