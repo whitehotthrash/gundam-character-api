@@ -43,7 +43,7 @@ This repository's `requirements.txt` pins the versions used during development; 
 
 This project includes a live production deployment using Neon and Render.
 
-**Live Environment: https://travel-planner-api-d1up.onrender.com**
+**Live Environment: 
 
 ## Quick start (local)
 
