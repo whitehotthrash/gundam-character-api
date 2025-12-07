@@ -16,7 +16,6 @@ class Character(db.Model):
         secondary=character_affiliation,
         back_populates="characters"
     )
-
     occupations = db.relationship(
         "Occupation",
         secondary=character_occupation,

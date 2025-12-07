@@ -1,22 +1,21 @@
 from init import ma
-from models.character import Character
-# from marshmallow import fields
-# from schemas.lookup_schema import affiliations_schema
+from marshmallow import Schema, fields
+from schemas.lookup_schema import affiliations_schema, occupations_schema, LookupSchema
 
 
 class CharacterSchema(ma.SQLAlchemyAutoSchema):
-    # affiliations = fields.List(fields.Integer(), load_only=True)
-    # affiliations = fields.Nested(affiliations_schema, only=["id"], many=True)
-    # affiliations = ma.Nested(affiliations_schema, only=["id"])
-    # occupations  = fields.List(fields.Integer(), load_only=True)
-    class Meta:
-        model = Character
-        load_instance = True
-        ordered = True
-        include_relationships = False
+  id = fields.Int()
+  name = fields.Str()
+  birth_year = fields.Date()
+  classification = fields.Str()
+  place_of_birth = fields.Str()
+  rank = fields.Str()
+  status = fields.Str()
+  affiliations = fields.Nested(affiliations_schema, many=True)
+  occupations = fields.Nested(occupations_schema, many=True)
+  affiliation_ids = fields.List(fields.Int(), load_only=True)
+  occupation_ids = fields.List(fields.Int(), load_only=True)
 
 
-# single character schema
 character_schema = CharacterSchema()
-# multiple character schema
 characters_schema = CharacterSchema(many=True)

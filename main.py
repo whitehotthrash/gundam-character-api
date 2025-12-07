@@ -1,4 +1,6 @@
-from flask import Flask
+from flask import Flask, jsonify
+from werkzeug.exceptions import HTTPException
+from marshmallow import ValidationError
 from init import db, ma
 
 def create_app():
@@ -20,5 +22,21 @@ def create_app():
     from controllers import registerable_controllers
     for controller in registerable_controllers:
         app.register_blueprint(controller)
+
+    # Centralised error handlers return JSON responses
+    @app.errorhandler(HTTPException)
+    def handle_http_exception(e):
+        response = {"error": e.description}
+        return jsonify(response), e.code
+
+    @app.errorhandler(ValidationError)
+    def handle_validation_error(e):
+        # Marshmallow validation error
+        return jsonify({"errors": e.messages}), 400
+
+    @app.errorhandler(Exception)
+    def handle_unexpected_exception(e):
+        app.logger.exception(e)
+        return jsonify({"error": "Internal server error"}), 500
 
     return app
