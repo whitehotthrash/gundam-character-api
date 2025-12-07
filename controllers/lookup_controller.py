@@ -81,7 +81,7 @@ def delete_affiliation(id):
     affiliation = fetch_or_abort(Affiliation, id, not_found_message="Affiliation doesn't exist", http_code=400)
     db.session.delete(affiliation)
     commit_or_abort()
-    return "", 204
+    return jsonify({"success": "affiliation deleted"}), 200
 
 
 # DELETE endpoint for occupations
@@ -90,7 +90,7 @@ def delete_occupation(id):
     occupation = fetch_or_abort(Occupation, id, not_found_message="Occupation doesn't exist", http_code=400)
     db.session.delete(occupation)
     commit_or_abort()
-    return "", 204
+    return jsonify({"success": "occupation deleted"}), 200
 
 
 # PUT endpoint for affiliations

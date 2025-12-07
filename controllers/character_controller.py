@@ -154,7 +154,7 @@ def delete_character(id):
     db.session.delete(character)
     commit_or_abort()
 
-    return "", 204
+    return jsonify({"success": "character deleted"}), 200
 
 
 # @characters.route("/418/", methods=["GET"])
