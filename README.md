@@ -43,7 +43,7 @@ This repository's `requirements.txt` pins the versions used during development; 
 
 This project includes a live production deployment using Neon and Render.
 
-**Live Environment: 
+**Live Environment: https://gundam-character-api.onrender.com/characters/
 
 ## Quick start (local)
 
