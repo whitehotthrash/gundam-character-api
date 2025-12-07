@@ -218,7 +218,7 @@ API base: `http://127.0.0.1:5000/`
 
 ## API Endpoints (summary)
 
-Base path: `/`
+Base path: `/characters/`
 
 Characters
 - `GET /characters/` — list characters (200)
