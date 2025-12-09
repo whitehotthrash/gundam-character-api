@@ -152,7 +152,7 @@ psql "postgresql://admin:123456@localhost:5432/gundam_api_db"
 1. Clone and open the project root (the API code lives in this repository):
 
 ```bash
-git clone https://github.com/whitehotthrash/web-api-server.git
+git clone https://github.com/whitehotthrash/gundam-character-api.git
 cd gundam-character-api
 ```
 
